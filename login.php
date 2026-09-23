@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <i class="bi bi-box-seam-fill text-primary fs-2"></i>
             </div>
             <h3 class="fw-bold text-white mb-1">SGI Enterprise</h3>
-            <p class="text-secondary small mb-0">Sistema de Gestión de Inventario</p>
+            <p class="text-secondary small mb-0">Sistema de Gestión de Inventario RAMA TEST</p>
         </div>
 
         <div class="card-custom p-4 animate__animated animate__fadeInUp">
