@@ -78,6 +78,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $pdo->beginTransaction();
 
+            // VALIDACIÓN ESTRICTA: Verificar que el insumo exista y esté ACTIVO (is_active = 1)
+            $stmtProdCheck =$pdo->prepare("SELECT id, is_active, name FROM products WHERE id = ?");
+            $stmtProdCheck->execute([$product_id]);
+            $prodInfo =$stmtProdCheck->fetch(PDO::FETCH_ASSOC);
+
+            if (!$prodInfo) {
+                throw new Exception("El insumo seleccionado no existe en el sistema.");
+            }
+
+            if (isset($prodInfo['is_active']) && intval($prodInfo['is_active']) === 0) {
+                throw new Exception("El insumo '{$prodInfo['name']}' se encuentra INACTIVO y no se pueden realizar solicitudes para este producto.");
+            }
+
+            // Validar stock disponible
             $stmtStock =$pdo->prepare("SELECT current_stock FROM inventory_stock WHERE product_id = :product_id FOR UPDATE");
             $stmtStock->execute([':product_id' =>$product_id]);
             $stockData =$stmtStock->fetch(PDO::FETCH_ASSOC);
@@ -103,10 +117,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 try {
+    // FILTRAR PRODUCTOS: Solo mostrar los que estén activos (is_active = 1)
     $stmtProductos =$pdo->query("
         SELECT p.id, p.name, p.sku, COALESCE(i.current_stock, 0) AS stock 
         FROM products p 
         LEFT JOIN inventory_stock i ON p.id = i.product_id 
+        WHERE p.is_active = 1 
         ORDER BY p.name ASC
     ");
     $productos =$stmtProductos->fetchAll(PDO::FETCH_ASSOC);
