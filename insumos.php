@@ -44,10 +44,11 @@ try {
 // Crear nueva categoría vía Formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) &&$_POST['action'] === 'new_category') {
     $cat_name = trim($_POST['cat_name'] ?? '');
+    $cat_description = trim($_POST['cat_description'] ?? '');
     if (!empty($cat_name)) {
         try {
-            $stmtNewCat =$pdo->prepare("INSERT INTO categories (name) VALUES (?)");
-            $stmtNewCat->execute([$cat_name]);
+            $stmtNewCat =$pdo->prepare("INSERT INTO categories (name, description) VALUES (?, ?)");
+            $stmtNewCat->execute([$cat_name, $cat_description !== '' ? $cat_description : null]);
             $mensaje = "Categoría '$cat_name' creada correctamente.";
         } catch (PDOException $e) {$error = "Error al crear la categoría: " . $e->getMessage();
         }
@@ -492,6 +493,10 @@ $userRole = strtolower($_SESSION['role'] ?? '');
                         <div class="mb-3">
                             <label class="form-label text-secondary fw-medium">Nombre Categoría *</label>
                             <input type="text" name="cat_name" class="form-control" required placeholder="Ej: Material Impreso">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label text-secondary fw-medium">Descripción</label>
+                            <textarea name="cat_description" class="form-control" rows="3" placeholder="Ingrese una descripción"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer border-top-0">
