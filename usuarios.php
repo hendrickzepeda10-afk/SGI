@@ -221,7 +221,7 @@ try {
                         <div class="mb-4">
                             <label class="form-label text-secondary small fw-semibold">Rol / Perfil *</label>
                             <select name="role" class="form-select bg-dark text-white border-secondary" required>
-                                <option value="Operador">Operador</option>
+                                <option value="Colaborador">Colaborador</option>
                                 <option value="Almacenista">Almacenista</option>
                                 <option value="Administrador">Administrador</option>
                             </select>

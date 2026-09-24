@@ -53,11 +53,11 @@ try {
 // Recargar columnas
 $movColumns = $database->getTableColumns('inventory_movements');
 
-// Función auxiliar para obtener un usuario válido
+// Función auxiliar para obtener un usuario válido (Corregido para usar la tabla 'users')
 function getValidUserId($pdo) {
     if (!empty($_SESSION['user_id'])) {
         try {
-            $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE id = ?");
+            $stmt = $pdo->prepare("SELECT id FROM users WHERE id = ?");
             $stmt->execute([(int)$_SESSION['user_id']]);
             $validUser = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($validUser) {
@@ -67,7 +67,7 @@ function getValidUserId($pdo) {
     }
 
     try {
-        $stmt = $pdo->query("SELECT id FROM usuarios ORDER BY id ASC LIMIT 1");
+        $stmt = $pdo->query("SELECT id FROM users ORDER BY id ASC LIMIT 1");
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($user) {
             $_SESSION['user_id'] = (int)$user['id'];
@@ -75,15 +75,9 @@ function getValidUserId($pdo) {
         }
     } catch (Exception $e) {}
 
-    try {
-        $stmtInsert = $pdo->prepare("INSERT INTO usuarios (rol_id, nombre, email, password) VALUES (?, ?, ?, ?)");
-        $stmtInsert->execute([1, 'Admin', 'admin@sistema.local', password_hash('123456', PASSWORD_DEFAULT)]);
-        $newId = (int)$pdo->lastInsertId();
-        $_SESSION['user_id'] = $newId;
-        return $newId;
-    } catch (Exception $e) {
-        return 1;
-    }
+    // Si no hay usuarios en la tabla 'users', retornamos null 
+    // (la columna user_id permite NULL en tu base de datos)
+    return null;
 }
 
 // 1. ELIMINAR MOVIMIENTO
