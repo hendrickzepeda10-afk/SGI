@@ -5,16 +5,16 @@
   const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
   
   // Usamos data-bs-theme para que Bootstrap cambie los colores automáticamente
-  document.documentElement.setAttribute('data-bs-theme', initialTheme);
+  document.documentElement.setAttribute('data-theme', initialTheme);
   document.documentElement.setAttribute('data-theme', initialTheme);
 })();
 
 // Función para alternar tema
 function toggleTheme() {
-  const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+  const currentTheme = document.documentElement.getAttribute('data-theme');
   const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
   
-  document.documentElement.setAttribute('data-bs-theme', newTheme);
+  document.documentElement.setAttribute('data-theme', newTheme);
   document.documentElement.setAttribute('data-theme', newTheme);
   localStorage.setItem('theme', newTheme);
   
@@ -29,6 +29,6 @@ function updateThemeButtonText(theme) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const currentTheme = document.documentElement.getAttribute('data-bs-theme') || 'light';
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
   updateThemeButtonText(currentTheme);
 });

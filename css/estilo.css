@@ -1,54 +1,161 @@
-:root {
-    --sidebar-width: 260px;
-    --primary-color: #d8dbe3;
-    --accent-color: #2563eb;
-    --bg-body: #121318;
-    --card-bg: #18191c;
-    --card-border: #2d2f38;
+/* =========================================================
+   VARIABLES - MODO CLARO Y BASE
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+:root,
+[data-theme="light"] {
+    --bg-principal: #f8f9fa;
+    --bg-card: #ffffff;
+    --bg-body: #f8f9fa;
+
+    --texto-principal: #212529;
+    --texto-secundario: #6c757d;
+
+    --borde: #dee2e6;
+    --accent: #0d6efd;
+
+    /* Compatibilidad CSS */
+    --card-bg: #ffffff;
+    --card-border: #dee2e6;
+    --accent-color: #0d6efd;
+
+    /* Sidebar - Modo Claro */
+    --sidebar-bg: #ffffff;
+    --sidebar-border: #e2e8f0;
+    --sidebar-text: #475569;
+    --sidebar-brand-text: #0f172a;
+    --sidebar-hover-bg: rgba(13, 110, 253, 0.08);
+
+    --sidebar-width: 260px;
+}
+
+
+/* =========================================================
+   VARIABLES - MODO OSCURO
+   ========================================================= */
+
+[data-theme="dark"] {
+    --bg-principal: #121212;
+    --bg-card: #1e1e1e;
+    --bg-body: #121212;
+
+    --texto-principal: #ffffff;
+    --texto-secundario: #adb5bd;
+
+    --borde: #2d3748;
+    --accent: #3d8bfd;
+
+    /* Compatibilidad CSS */
+    --card-bg: #1e1e1e;
+    --card-border: #2d3748;
+    --accent-color: #3d8bfd;
+
+    /* Sidebar - Modo Oscuro */
+    --sidebar-bg: #0f172a;
+    --sidebar-border: #1e293b;
+    --sidebar-text: #94a3b8;
+    --sidebar-brand-text: #ffffff;
+    --sidebar-hover-bg: rgba(255, 255, 255, 0.08);
+
+    --sidebar-width: 260px;
+}
+
+
+/* =========================================================
+   BODY
+   ========================================================= */
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--bg-body);
-    color: #f4f4f5;
+    background-color: var(--bg-body) !important;
+    color: var(--texto-principal);
     position: relative;
     min-height: 100vh;
     overflow-x: hidden;
     margin: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+
+/* =========================================================
+   ANIMACIONES
+   ========================================================= */
+
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes slideInSidebar {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(0); }
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
 }
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
 
 .sidebar {
     width: var(--sidebar-width);
-    background-color: #0f172a;
+    max-width: var(--sidebar-width);
+    background-color: var(--sidebar-bg);
     min-height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 100;
-    border-right: 1px solid #1e293b;
+    border-right: 1px solid var(--sidebar-border);
+    box-sizing: border-box;
     animation: slideInSidebar 0.4s ease-out forwards;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .sidebar-brand {
     padding: 1.5rem 1.25rem;
     font-size: 1.15rem;
     font-weight: 700;
-    color: #ffffff;
-    border-bottom: 1px solid #1e293b;
+    color: var(--sidebar-brand-text);
+    border-bottom: 1px solid var(--sidebar-border);
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.sidebar .text-muted,
+.sidebar small,
+.sidebar-heading {
+    color: var(--sidebar-text) !important;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
 }
 
 .nav-link-custom {
-    color: #94a3b8;
+    color: var(--sidebar-text) !important;
     padding: 0.65rem 1.25rem;
     display: flex;
     align-items: center;
@@ -59,9 +166,10 @@ body {
     transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
-.nav-link-custom:hover, .nav-link-custom.active {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.05);
+.nav-link-custom:hover,
+.nav-link-custom.active {
+    color: var(--sidebar-brand-text) !important;
+    background-color: var(--sidebar-hover-bg);
     border-left: 3px solid var(--accent-color);
     transform: translateX(4px);
 }
@@ -74,60 +182,231 @@ body {
     transform: scale(1.15);
 }
 
+#btn-theme-toggle {
+    width: calc(100% - 2.5rem);
+    margin: 1rem 1.25rem 0;
+    text-align: left;
+    color: var(--sidebar-text) !important;
+    background-color: transparent !important;
+    border-color: var(--sidebar-border) !important;
+}
+
+#btn-theme-toggle:hover,
+#btn-theme-toggle:focus-visible {
+    color: var(--sidebar-brand-text) !important;
+    background-color: var(--sidebar-hover-bg) !important;
+    border-color: var(--accent-color) !important;
+}
+
+
+/* =========================================================
+   CONTENIDO PRINCIPAL
+   ========================================================= */
+
 .main-content {
-    margin-left: var(--sidebar-width);
+    margin-left: calc(var(--sidebar-width) + 2rem);
     padding: 2rem 2.5rem;
     min-height: 100vh;
+    width: auto;
+    max-width: none;
+    box-sizing: border-box;
+    color: var(--texto-principal);
     animation: fadeIn 0.5s ease-out forwards;
+    overflow-x: hidden;
 }
 
-.custom-card {
-    background-color: var(--card-bg);
-    border: 1px solid var(--card-border);
+.main-content.centered-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: auto;
+    max-width: none;
+}
+
+
+/* =========================================================
+   TARJETAS
+   ========================================================= */
+
+.custom-card,
+.card-custom {
+    background-color: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
     border-radius: 12px;
     padding: 1.5rem;
+    color: var(--texto-principal) !important;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-.form-control, .form-select {
-    background-color: #121316;
-    border: 1px solid #333644;
-    color: #fff;
+
+/* =========================================================
+   TÍTULOS Y TEXTOS
+   ========================================================= */
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--texto-principal);
 }
 
-.form-control:focus, .form-select:focus {
-    background-color: #121316;
-    border-color: var(--accent-color);
-    color: #fff;
-    box-shadow: none;
+p, span, label, strong {
+    color: inherit;
+}
+
+
+/* =========================================================
+   FORMULARIOS (SISTEMA BASE)
+   ========================================================= */
+
+.form-control,
+.form-select,
+.form-check-input {
+    background-color: var(--bg-card) !important;
+    border: 1px solid var(--card-border) !important;
+    color: var(--texto-principal) !important;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--bg-card) !important;
+    border-color: var(--accent-color) !important;
+    color: var(--texto-principal) !important;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25) !important;
+}
+
+.form-control::placeholder {
+    color: var(--texto-secundario) !important;
+    opacity: 0.7;
+}
+
+.form-select option {
+    background-color: var(--bg-card);
+    color: var(--texto-principal);
+}
+
+.form-control:disabled,
+.form-control[readonly],
+.form-select:disabled {
+    background-color: var(--bg-body) !important;
+    color: var(--texto-secundario) !important;
+    opacity: 0.8;
+}
+
+.form-check-label {
+    color: var(--texto-principal) !important;
+}
+
+
+/* =========================================================
+   TABLAS
+   ========================================================= */
+
+.table {
+    color: var(--texto-principal) !important;
+}
+
+.table > :not(caption) > * > * {
+    background-color: var(--bg-card) !important;
+    color: var(--texto-principal) !important;
+    border-color: var(--card-border) !important;
 }
 
 .table-dark-custom {
-    background-color: transparent;
-    color: #e2e8f0;
+    background-color: transparent !important;
+    color: var(--texto-principal) !important;
 }
 
 .table-dark-custom th {
-    background-color: #141518;
-    color: #94a3b8;
-    border-bottom: 1px solid var(--card-border);
+    background-color: var(--bg-card) !important;
+    color: var(--texto-secundario) !important;
+    border-bottom: 1px solid var(--card-border) !important;
     font-size: 0.8rem;
     text-transform: uppercase;
 }
 
 .table-dark-custom td {
-    border-bottom: 1px solid #282a32;
+    background-color: var(--bg-card) !important;
+    color: var(--texto-principal) !important;
+    border-bottom: 1px solid var(--card-border) !important;
     vertical-align: middle;
     font-size: 0.875rem;
 }
 
-/* Solución para centrar exactamente al medio tomando en cuenta el espacio del sidebar */
-.main-content.centered-layout {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: calc(100% - var(--sidebar-width));
-    box-sizing: border-box;
+.salidas-table.table-hover > tbody > tr:hover > * {
+    background-color: var(--bg-card) !important;
+    color: var(--texto-principal) !important;
+    box-shadow: none !important;
 }
+
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
+
+.btn {
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+    color: #ffffff !important;
+}
+
+.btn-outline-primary {
+    color: #0d6efd !important;
+    border-color: #0d6efd !important;
+}
+
+.btn-outline-warning {
+    color: #ffc107 !important;
+    border-color: #ffc107 !important;
+}
+
+.btn-outline-danger {
+    color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+
+/* =========================================================
+   MODALES Y ALERTAS
+   ========================================================= */
+
+.modal-content {
+    background-color: var(--bg-card) !important;
+    color: var(--texto-principal) !important;
+    border: 1px solid var(--card-border) !important;
+}
+
+.modal-header,
+.modal-footer {
+    border-color: var(--card-border) !important;
+}
+
+.modal-title {
+    color: var(--texto-principal) !important;
+}
+
+.alert {
+    color: var(--texto-principal);
+}
+
+
+/* =========================================================
+   LOGIN Y BOTÓN CERRAR SESIÓN
+   ========================================================= */
+
+.login-container {
+    width: 100%;
+    max-width: 420px;
+    padding: 1rem;
+}
+
+.login-container .card-custom {
+    color: var(--texto-principal);
+}
+
 .btn-logout-container {
     position: fixed;
     bottom: 25px;
@@ -140,169 +419,398 @@ body {
     transform: translateY(-3px) scale(1.02);
 }
 
-        :root {
-            --sidebar-width: 260px;
-            --primary-color: #d8dbe3;
-            --accent-color: #2563eb;
-            --bg-body: #121318;
-            --card-bg: #18191c;
-            --card-border: #2d2f38;
-        }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: #f4f4f5;
-            position: relative;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+/* =========================================================
+   REGLAS FORZADAS - MODO CLARO [data-theme="light"]
+   ========================================================= */
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+[data-theme="light"],
+[data-theme="light"] body {
+    --bg-principal: #f8f9fa;
+    --bg-card: #ffffff;
+    --bg-body: #f8f9fa;
+    --card-bg: #ffffff;
+    --card-border: #dee2e6;
+    --texto-principal: #212529;
+    --texto-secundario: #6c757d;
+    background-color: #f8f9fa !important;
+    color: #212529 !important;
+}
 
-        @keyframes slideInSidebar {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(0); }
-        }
+/* Tarjetas */
+[data-theme="light"] .custom-card,
+[data-theme="light"] .card-custom,
+[data-theme="light"] .modal-content {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    border-color: #dee2e6 !important;
+}
 
-        .sidebar {
-            width: var(--sidebar-width);
-            background-color: #0f172a;
-            min-height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 100;
-            border-right: 1px solid #1e293b;
-            animation: slideInSidebar 0.4s ease-out forwards;
-        }
+/* Formularios en Modo Claro (Soluciona las capturas) */
+[data-theme="light"] .form-control,
+[data-theme="light"] .form-select {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    border-color: #ced4da !important;
+}
 
-        .sidebar-brand {
-            padding: 1.5rem 1.25rem;
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #ffffff;
-            border-bottom: 1px solid #1e293b;
-        }
+[data-theme="light"] .form-control::placeholder {
+    color: #6c757d !important;
+}
 
-        .nav-link-custom {
-            color: #94a3b8;
-            padding: 0.65rem 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-weight: 500;
-            font-size: 0.875rem;
-            text-decoration: none;
-            transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
-        }
+[data-theme="light"] .form-select option {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+}
 
-        .nav-link-custom:hover, .nav-link-custom.active {
-            color: #ffffff;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-left: 3px solid var(--accent-color);
-            transform: translateX(4px);
-        }
+/* Tablas en Modo Claro */
+[data-theme="light"] .table,
+[data-theme="light"] .table tbody,
+[data-theme="light"] .table tr,
+[data-theme="light"] .table td,
+[data-theme="light"] .table th {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    border-color: #dee2e6 !important;
+}
 
-        .nav-link-custom i {
-            transition: transform 0.2s ease;
-        }
+/* Títulos y textos */
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="light"] h4,
+[data-theme="light"] h5,
+[data-theme="light"] h6,
+[data-theme="light"] .page-title,
+[data-theme="light"] .main-content h1,
+[data-theme="light"] .main-content h2 {
+    color: #212529 !important;
+}
 
-        .nav-link-custom:hover i {
-            transform: scale(1.15);
-        }
+[data-theme="light"] .page-subtitle,
+[data-theme="light"] .main-content .text-muted {
+    color: #6c757d !important;
+}
 
-        .main-content {
-            margin-left: var(--sidebar-width);
-            padding: 2rem 2.5rem;
-            min-height: 100vh;
-            animation: fadeIn 0.5s ease-out forwards;
-        }
+[data-theme="light"] .btn-outline-light {
+    color: #212529 !important;
+    border-color: #212529 !important;
+    background-color: transparent !important;
+}
 
-        .custom-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
+[data-theme="light"] .btn-outline-light:hover {
+    color: #ffffff !important;
+    background-color: #212529 !important;
+    border-color: #212529 !important;
+}
 
-        .form-control, .form-select {
-            background-color: #121316;
-            border: 1px solid #333644;
-            color: #fff;
-        }
 
-        .form-control:focus, .form-select:focus {
-            background-color: #121316;
-            border-color: var(--accent-color);
-            color: #fff;
-            box-shadow: none;
-        }
+/* =========================================================
+   REGLAS FORZADAS - MODO OSCURO [data-theme="dark"]
+   ========================================================= */
 
-        .table-dark-custom {
-            background-color: transparent;
-            color: #e2e8f0;
-        }
+[data-theme="dark"],
+[data-theme="dark"] body {
+    --bg-principal: #121212;
+    --bg-card: #1e1e1e;
+    --bg-body: #121212;
+    --card-bg: #1e1e1e;
+    --card-border: #2d3748;
+    --texto-principal: #ffffff;
+    --texto-secundario: #adb5bd;
+    background-color: #121212 !important;
+    color: #ffffff !important;
+}
 
-        .table-dark-custom th {
-            background-color: #141518;
-            color: #94a3b8;
-            border-bottom: 1px solid var(--card-border);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-        }
+/* Tarjetas */
+[data-theme="dark"] .custom-card,
+[data-theme="dark"] .card-custom,
+[data-theme="dark"] .modal-content {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+    border-color: #2d3748 !important;
+}
 
-        .table-dark-custom td {
-            border-bottom: 1px solid #282a32;
-            vertical-align: middle;
-            font-size: 0.875rem;
-        }
-          
-        :root {
-            --primary-color: #0f172a;
-            --accent-color: #2563eb;
-            --bg-body: #111111;
-            --card-bg: #18181b;
-            --card-border: #27272a;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: #f4f4f5;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-        }
-        .login-container {
-            width: 100%;
-            max-width: 420px;
-            padding: 1rem;
-        }
-        .card-custom {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            box-shadow: 0 10.5px 21px -5px rgba(0, 0, 0, 0.6);
-            color: #f4f4f5;
-            backdrop-filter: blur(8px);
-        }
-        .form-control {
-            background-color: #121214;
-            border: 1px solid var(--card-border);
-            color: #f4f4f5;
-        }
-        .form-control:focus {
-            background-color: #121214;
-            border-color: var(--accent-color);
-            color: #f4f4f5;
-            box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.25);
-        }
-        .form-control::placeholder {
-            color: #71717a;
-        }
-    
+/* Formularios en Modo Oscuro */
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+    background-color: #2b3035 !important;
+    color: #ffffff !important;
+    border-color: #495057 !important;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+    color: #adb5bd !important;
+}
+
+[data-theme="dark"] .form-select option {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+}
+
+/* Tablas en Modo Oscuro */
+[data-theme="dark"] .table,
+[data-theme="dark"] .table tbody,
+[data-theme="dark"] .table tr,
+[data-theme="dark"] .table td,
+[data-theme="dark"] .table th {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+    border-color: #2d3748 !important;
+}
+
+/* Títulos y textos */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .btn-outline-light {
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+    background-color: transparent !important;
+}
+
+[data-theme="dark"] .btn-outline-light:hover {
+    color: #121212 !important;
+    background-color: #ffffff !important;
+}
+/* =========================================================
+   FORZADO DE MÁXIMA ESPECIFICIDAD PARA FORMULARIOS
+   ========================================================= */
+
+/* Forzado en Modo Claro o por Defecto */
+:root,
+[data-theme="light"],
+body:not([data-theme="dark"]) {
+    --bg-card: #ffffff !important;
+    --card-bg: #ffffff !important;
+}
+
+:root .form-control,
+:root .form-select,
+[data-theme="light"] .form-control,
+[data-theme="light"] .form-select,
+body:not([data-theme="dark"]) .form-control,
+body:not([data-theme="dark"]) .form-select,
+body:not([data-theme="dark"]) input.form-control,
+body:not([data-theme="dark"]) select.form-select {
+    background-color: #ffffff !important;
+    background-image: none; /* Elimina degradados o icons oscuros inyectados */
+    color: #212529 !important;
+    border: 1px solid #ced4da !important;
+}
+
+/* Evita que Autofill de Chrome / Edge pinte el fondo oscuro */
+body:not([data-theme="dark"]) input:-webkit-autofill,
+body:not([data-theme="dark"]) input:-webkit-autofill:hover,
+body:not([data-theme="dark"]) input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #212529 !important;
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Placeholders */
+body:not([data-theme="dark"]) .form-control::placeholder {
+    color: #6c757d !important;
+    opacity: 1 !important;
+}
+
+/* Opciones del selector desplegable */
+body:not([data-theme="dark"]) .form-select option {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+}
+
+
+/* =========================================================
+   REGLA PARA MODO OSCURO (SOLO CUANDO EXPLICITAMENTE SE ACTIVA)
+   ========================================================= */
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select,
+[data-theme="dark"] input.form-control,
+[data-theme="dark"] select.form-select {
+    background-color: #2b3035 !important;
+    color: #ffffff !important;
+    border: 1px solid #495057 !important;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+    color: #adb5bd !important;
+}
+
+[data-theme="dark"] .form-select option {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   CORRECCIÓN FINAL - FORMULARIOS / HOVER / MODO CLARO Y OSCURO
+   ========================================================= */
+
+/* Los campos NO deben ponerse negros al pasar el cursor */
+.form-control:hover,
+.form-select:hover,
+.form-control:active,
+.form-select:active {
+    color: var(--texto-principal) !important;
+}
+
+/* MODO CLARO */
+:root .form-control:hover,
+:root .form-select:hover,
+[data-theme="light"] .form-control:hover,
+[data-theme="light"] .form-select:hover,
+body:not([data-theme="dark"]) .form-control:hover,
+body:not([data-theme="dark"]) .form-select:hover {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    border-color: #86b7fe !important;
+}
+
+:root .form-control:focus,
+:root .form-select:focus,
+[data-theme="light"] .form-control:focus,
+[data-theme="light"] .form-select:focus,
+body:not([data-theme="dark"]) .form-control:focus,
+body:not([data-theme="dark"]) .form-select:focus {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 0 0.20rem rgba(13, 110, 253, 0.20) !important;
+}
+
+/* MODO OSCURO */
+[data-theme="dark"] .form-control:hover,
+[data-theme="dark"] .form-select:hover,
+[data-theme="dark"] .form-control:active,
+[data-theme="dark"] .form-select:active {
+    background-color: #2b3035 !important;
+    color: #ffffff !important;
+    border-color: #6ea8fe !important;
+}
+
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] .form-select:focus {
+    background-color: #2b3035 !important;
+    color: #ffffff !important;
+    border-color: #3d8bfd !important;
+    box-shadow: 0 0 0 0.20rem rgba(61, 139, 253, 0.25) !important;
+}
+
+/* Inputs de texto, número, fecha, búsqueda, etc. */
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]),
+textarea,
+select {
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* Evita que un hover genérico de botones afecte los campos */
+.form-control:hover,
+.form-select:hover,
+textarea:hover,
+input:hover,
+select:hover {
+    text-decoration: none !important;
+}
+
+/* Select: mantener el mismo aspecto al interactuar */
+[data-theme="light"] select.form-select:hover,
+body:not([data-theme="dark"]) select.form-select:hover {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+}
+
+[data-theme="dark"] select.form-select:hover {
+    background-color: #2b3035 !important;
+    color: #ffffff !important;
+}
+
+/* Checkbox y radio */
+[data-theme="light"] .form-check-input:hover {
+    background-color: #ffffff !important;
+    border-color: #0d6efd !important;
+}
+
+[data-theme="dark"] .form-check-input:hover {
+    background-color: #2b3035 !important;
+    border-color: #6ea8fe !important;
+}
+
+/* Botones: hover con colores propios, nunca negro por una regla global */
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #0b5ed7 !important;
+    border-color: #0a58ca !important;
+    color: #ffffff !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+    color: #ffffff !important;
+}
+
+.btn-outline-warning:hover,
+.btn-outline-warning:focus,
+.btn-outline-warning:active {
+    background-color: #ffc107 !important;
+    border-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+.btn-outline-danger:hover,
+.btn-outline-danger:focus,
+.btn-outline-danger:active {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+    color: #ffffff !important;
+}
+
+/* Botón outline-light según el tema */
+[data-theme="light"] .btn-outline-light:hover,
+[data-theme="light"] .btn-outline-light:focus,
+[data-theme="light"] .btn-outline-light:active {
+    background-color: #212529 !important;
+    border-color: #212529 !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .btn-outline-light:hover,
+[data-theme="dark"] .btn-outline-light:focus,
+[data-theme="dark"] .btn-outline-light:active {
+    background-color: #ffffff !important;
+    border-color: #ffffff !important;
+    color: #121212 !important;
+}
+
+/* Texto de ayuda y etiquetas */
+[data-theme="light"] .form-text {
+    color: #6c757d !important;
+}
+
+[data-theme="dark"] .form-text {
+    color: #adb5bd !important;
+}
+
+/* Autofill en modo oscuro */
+[data-theme="dark"] input:-webkit-autofill,
+[data-theme="dark"] input:-webkit-autofill:hover,
+[data-theme="dark"] input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #ffffff !important;
+    -webkit-box-shadow: 0 0 0 1000px #2b3035 inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}

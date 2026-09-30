@@ -17,13 +17,8 @@ if (!isset($_SESSION['user_id'])) {
     <script>
       const savedTheme = localStorage.getItem('theme');
       const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-<script>
-  const savedTheme = localStorage.getItem('theme');
-  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const theme = savedTheme || (systemDark ? 'dark' : 'light');
-  document.documentElement.setAttribute('data-bs-theme', theme);
-  document.documentElement.setAttribute('data-theme', theme);
-</script>
+            const theme = savedTheme || (systemDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
     </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -42,9 +37,9 @@ if (!isset($_SESSION['user_id'])) {
             <div class="mb-3 text-primary fs-3">
                 <i class="bi bi-box-seam"></i>
             </div>
-            <h1 class="fw-bold text-white mb-3 fs-2">Bienvenido al sistema de gestión de inventario</h1>
+            <h1 class="fw-bold mb-3 fs-2">Bienvenido al sistema de gestión de inventario</h1>
             <p class="text-secondary mb-4 fs-6">
-                Plataforma para el control de tus insumos. Desde aquí podrás <strong class="text-white">registrar</strong> nuevos productos, <strong class="text-white">editar</strong> existencias, <strong class="text-white">administrar entradas y salidas</strong>, y supervisar el stock en tiempo real.
+                Plataforma para el control de tus insumos. Desde aquí podrás <strong>registrar</strong> nuevos productos, <strong>editar</strong> existencias, <strong>administrar entradas y salidas</strong>, y supervisar el stock en tiempo real.
             </p>
             <div class="d-flex flex-wrap gap-3">
                 <a href="pedir.php" class="btn btn-primary px-4 py-2 fw-medium d-flex align-items-center gap-2">

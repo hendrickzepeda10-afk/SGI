@@ -5,6 +5,7 @@
 [data-theme="light"] {
   --bg-principal: #f8f9fa;
   --bg-card: #ffffff;
+  --bg-body: #f8f9fa;
   --texto-principal: #212529;
   --texto-secundario: #6c757d;
   --borde: #dee2e6;
@@ -13,7 +14,7 @@
 
 /* Tema Oscuro */
 [data-theme="dark"] {
-  --bg-principal: #121212;
+  --bg-dark: #121212;
   --bg-card: #1e1e1e;
   --texto-principal: #e9ecef;
   --texto-secundario: #adb5bd;
@@ -24,6 +25,16 @@
 /* Aplicación general */
 body {
   background-color: var(--bg-principal);
+  color: var(--texto-principal);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+[data-theme="light"] body {
+  background-color: var(--bg-body);
+  color: var(--texto-principal);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+[data-theme="dark"] body {
+  background-color: var(--bg-dark);
   color: var(--texto-principal);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
