@@ -1,0 +1,36 @@
+/* css/temas.css */
+
+/* Tema Claro (por defecto) */
+:root,
+[data-theme="light"] {
+  --bg-principal: #f8f9fa;
+  --bg-card: #ffffff;
+  --texto-principal: #212529;
+  --texto-secundario: #6c757d;
+  --borde: #dee2e6;
+  --accent: #0d6efd;
+}
+
+/* Tema Oscuro */
+[data-theme="dark"] {
+  --bg-principal: #121212;
+  --bg-card: #1e1e1e;
+  --texto-principal: #e9ecef;
+  --texto-secundario: #adb5bd;
+  --borde: #2d3748;
+  --accent: #3d8bfd;
+}
+
+/* Aplicación general */
+body {
+  background-color: var(--bg-principal);
+  color: var(--texto-principal);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Ejemplo de cómo aplicar a tus tarjetas, componentes o tablas */
+.card, .table, .sidebar {
+  background-color: var(--bg-card);
+  color: var(--texto-principal);
+  border-color: var(--borde);
+}

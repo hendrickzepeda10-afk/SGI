@@ -66,53 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="css/estilo.css">
 
-    <style>
-        :root {
-            --primary-color: #0f172a;
-            --accent-color: #2563eb;
-            --bg-body: #111111;
-            --card-bg: #18181b;
-            --card-border: #27272a;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: #f4f4f5;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-        }
-        .login-container {
-            width: 100%;
-            max-width: 420px;
-            padding: 1rem;
-        }
-        .card-custom {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            box-shadow: 0 10.5px 21px -5px rgba(0, 0, 0, 0.6);
-            color: #f4f4f5;
-            backdrop-filter: blur(8px);
-        }
-        .form-control {
-            background-color: #121214;
-            border: 1px solid var(--card-border);
-            color: #f4f4f5;
-        }
-        .form-control:focus {
-            background-color: #121214;
-            border-color: var(--accent-color);
-            color: #f4f4f5;
-            box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.25);
-        }
-        .form-control::placeholder {
-            color: #71717a;
-        }
-    </style>
 </head>
 <body>
 

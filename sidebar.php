@@ -75,6 +75,13 @@ if (session_status() === PHP_SESSION_NONE) {
                     <i class="bi bih bi-people-fill text-primary"></i> Roles / Accesos
                 </a>
             <?php endif; ?>
+            <!-- Botón para alternar tema -->
+<button id="btn-theme-toggle" onclick="toggleTheme()" class="btn btn-outline-secondary">
+    🌙 Modo Oscuro
+</button>
+
+<!-- Cargar el script completo de funcionalidad -->
+<script src="theme.js"></script>
         </nav>
     </div>
 </aside>
